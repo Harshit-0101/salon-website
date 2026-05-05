@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login or sign up for Premium Salon customer access.">
+    <title>Login & Sign Up | Premium Salon</title>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-page">
+    <a class="skip-link" href="#authMain">Skip to account form</a>
+
+    <nav class="navbar" aria-label="Account navigation">
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo" aria-label="Premium Salon home">
+                <span class="logo-mark"><i class="fas fa-spa"></i></span>
+                <span>Premium Salon</span>
+            </a>
+            <div class="booking-nav-actions">
+                <a href="index.html" class="nav-link">Website</a>
+                <a href="booking.html" class="nav-link nav-link--button"><i class="fas fa-calendar-check"></i> Book</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="authMain" class="auth-shell">
+        <section class="auth-card booking-form">
+            <div class="auth-head">
+                <p class="eyebrow">Customer account</p>
+                <h1>Login or sign up</h1>
+                <p>Create a customer account. New account data is saved in `users.csv` for Excel.</p>
+            </div>
+
+            <div class="auth-tabs" role="tablist" aria-label="Account forms">
+                <button class="auth-tab is-active" type="button" data-auth-view="login"><i class="fas fa-right-to-bracket"></i> Login</button>
+                <button class="auth-tab" type="button" data-auth-view="signup"><i class="fas fa-user-plus"></i> Sign Up</button>
+            </div>
+
+            <form id="customerLoginForm" class="auth-form" novalidate>
+                <div class="form-row">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" name="email" autocomplete="username" required>
+                    <span class="error-message" id="loginEmailError"></span>
+                </div>
+                <div class="form-row">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" autocomplete="current-password" required>
+                    <span class="error-message" id="loginPasswordError"></span>
+                </div>
+                <button class="btn btn-primary btn-full" id="customerLoginButton" type="submit"><i class="fas fa-lock"></i> Login</button>
+            </form>
+
+            <form id="customerSignupForm" class="auth-form" hidden novalidate>
+                <div class="form-row">
+                    <label for="signupName">Full name</label>
+                    <input type="text" id="signupName" name="name" autocomplete="name" required>
+                    <span class="error-message" id="signupNameError"></span>
+                </div>
+                <div class="form-row">
+                    <label for="signupPhone">Phone</label>
+                    <input type="tel" id="signupPhone" name="phone" autocomplete="tel" required>
+                    <span class="error-message" id="signupPhoneError"></span>
+                </div>
+                <div class="form-row">
+                    <label for="signupOtp">Phone OTP</label>
+                    <div class="otp-row">
+                        <input type="text" id="signupOtp" name="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required>
+                        <button class="text-button otp-button" id="sendOtpButton" type="button">Send OTP</button>
+                    </div>
+                    <span class="error-message" id="signupOtpError"></span>
+                </div>
+                <div class="form-row">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" name="email" autocomplete="username" required>
+                    <span class="error-message" id="signupEmailError"></span>
+                </div>
+                <div class="form-row">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" name="password" autocomplete="new-password" required>
+                    <span class="error-message" id="signupPasswordError"></span>
+                </div>
+                <button class="btn btn-primary btn-full" id="customerSignupButton" type="submit"><i class="fas fa-user-plus"></i> Create Account</button>
+            </form>
+
+            <div class="form-message" id="authMessage" role="status" aria-live="polite"></div>
+            <div class="auth-session" id="authSession" hidden>
+                <strong id="sessionName"></strong>
+                <span id="sessionEmail"></span>
+                <button class="text-button" id="customerLogoutButton" type="button">Logout</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="auth.js"></script>
+</body>
+</html>

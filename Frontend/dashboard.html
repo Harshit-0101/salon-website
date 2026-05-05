@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Owner dashboard for Premium Salon bookings and contact messages.">
+    <title>Owner Dashboard | Premium Salon</title>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page">
+    <a class="skip-link" href="#dashboardMain">Skip to dashboard</a>
+
+    <nav class="navbar" aria-label="Dashboard navigation">
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo" aria-label="Premium Salon home">
+                <span class="logo-mark"><i class="fas fa-spa"></i></span>
+                <span>Premium Salon</span>
+            </a>
+            <div class="booking-nav-actions">
+                <a href="index.html" class="nav-link">Website</a>
+                <a href="booking.html" class="nav-link">Booking</a>
+                <button class="nav-link nav-link--button dashboard-logout" id="logoutButton" type="button" hidden>
+                    <i class="fas fa-right-from-bracket"></i> Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="dashboardMain" class="dashboard-shell">
+        <section class="dashboard-login" id="loginPanel">
+            <form class="booking-form dashboard-login__form" id="loginForm" novalidate>
+                <div>
+                    <p class="eyebrow">Owner access</p>
+                    <h1>Dashboard login</h1>
+                    <p>Sign in to view bookings, customer messages, and today’s owner summary.</p>
+                </div>
+
+                <div class="form-row">
+                    <label for="adminEmail">Email</label>
+                    <input type="email" id="adminEmail" name="email" autocomplete="username" value="admin@salon.com" required>
+                    <span class="error-message" id="adminEmailError"></span>
+                </div>
+
+                <div class="form-row">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" name="password" autocomplete="current-password" required>
+                    <span class="error-message" id="adminPasswordError"></span>
+                </div>
+
+                <button class="btn btn-primary btn-full" id="loginButton" type="submit">
+                    <i class="fas fa-lock"></i> Login
+                </button>
+                <div class="form-message" id="loginMessage" role="status" aria-live="polite"></div>
+            </form>
+        </section>
+
+        <section class="container dashboard-content" id="dashboardContent" hidden>
+            <div class="dashboard-heading">
+                <div>
+                    <p class="eyebrow">Owner dashboard</p>
+                    <h1>Bookings and customer messages</h1>
+                </div>
+                <div class="dashboard-actions">
+                    <button class="btn btn-secondary" id="refreshButton" type="button">
+                        <i class="fas fa-rotate"></i> Refresh
+                    </button>
+                    <a class="btn btn-primary" href="booking.html">
+                        <i class="fas fa-calendar-plus"></i> New Booking
+                    </a>
+                </div>
+            </div>
+
+            <div class="dashboard-alert" id="dashboardMessage" role="status" aria-live="polite"></div>
+
+            <div class="dashboard-stats" aria-label="Owner summary">
+                <article class="dashboard-stat">
+                    <span>Total bookings</span>
+                    <strong id="totalBookings">0</strong>
+                </article>
+                <article class="dashboard-stat">
+                    <span>Today bookings</span>
+                    <strong id="todayBookings">0</strong>
+                </article>
+                <article class="dashboard-stat">
+                    <span>Upcoming</span>
+                    <strong id="upcomingBookings">0</strong>
+                </article>
+                <article class="dashboard-stat">
+                    <span>Messages</span>
+                    <strong id="totalContacts">0</strong>
+                </article>
+                <article class="dashboard-stat">
+                    <span>Customers</span>
+                    <strong id="totalUsers">0</strong>
+                </article>
+            </div>
+
+            <div class="dashboard-tools">
+                <label class="dashboard-search" for="dashboardSearch">
+                    <i class="fas fa-magnifying-glass"></i>
+                    <input type="search" id="dashboardSearch" placeholder="Search name, phone, service, date">
+                </label>
+                <div class="dashboard-tabs" role="tablist" aria-label="Dashboard data views">
+                    <button class="dashboard-tab is-active" type="button" data-view="bookings">
+                        <i class="fas fa-calendar-check"></i> Bookings
+                    </button>
+                    <button class="dashboard-tab" type="button" data-view="contacts">
+                        <i class="fas fa-message"></i> Contacts
+                    </button>
+                    <button class="dashboard-tab" type="button" data-view="users">
+                        <i class="fas fa-users"></i> Users
+                    </button>
+                </div>
+            </div>
+
+            <section class="dashboard-panel" id="bookingsPanel">
+                <div class="dashboard-panel__head">
+                    <h2>Booking list</h2>
+                    <span id="bookingCount">0 records</span>
+                </div>
+                <div class="dashboard-table-wrap">
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Service</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Message</th>
+                                <th>Created</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingRows"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="dashboard-panel" id="contactsPanel" hidden>
+                <div class="dashboard-panel__head">
+                    <h2>Contact messages</h2>
+                    <span id="contactCount">0 records</span>
+                </div>
+                <div class="dashboard-table-wrap">
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Message</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contactRows"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="dashboard-panel" id="usersPanel" hidden>
+                <div class="dashboard-panel__head">
+                    <h2>Customer accounts</h2>
+                    <span id="userCount">0 records</span>
+                </div>
+                <div class="dashboard-table-wrap">
+                    <table class="dashboard-table dashboard-table--users">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Created</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userRows"></tbody>
+                    </table>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

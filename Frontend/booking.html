@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Book an appointment at Premium Salon. Pick a date, choose an available time slot, and reserve your service.">
+    <title>Book Appointment | Premium Salon</title>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="booking-page">
+    <a class="skip-link" href="#bookingMain">Skip to booking</a>
+
+    <nav class="navbar" aria-label="Booking navigation">
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo" aria-label="Premium Salon home">
+                <span class="logo-mark"><i class="fas fa-spa"></i></span>
+                <span>Premium Salon</span>
+            </a>
+            <div class="booking-nav-actions">
+                <a href="index.html#services" class="nav-link">Services</a>
+                <a href="auth.html" class="nav-link">Login</a>
+                <a href="dashboard.html" class="nav-link">Owner</a>
+                <a href="tel:+919876543210" class="nav-link nav-link--button"><i class="fas fa-phone"></i> Call</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="bookingMain" class="booking-shell">
+        <div class="container booking-layout">
+            <section class="booking-intro">
+                <p class="eyebrow">Book appointment</p>
+                <h1>Pick a date and reserve your time.</h1>
+                <p>Booked slots are disabled immediately after a customer reserves them. Select another available time if your first choice is already taken.</p>
+
+                <div class="booking-summary" aria-label="Booking summary">
+                    <div>
+                        <span>Hours</span>
+                        <strong>10:00 AM - 7:00 PM</strong>
+                    </div>
+                    <div>
+                        <span>Slot length</span>
+                        <strong>60 minutes</strong>
+                    </div>
+                    <div>
+                        <span>Confirmation</span>
+                        <strong>Phone or WhatsApp</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section class="booking-card" aria-label="Appointment form">
+                <form id="bookingForm" novalidate>
+                    <div class="form-row">
+                        <label for="service">Service</label>
+                        <select id="service" name="service" required>
+                            <option value="">Choose a service</option>
+                            <option value="Hair Styling">Hair Styling</option>
+                            <option value="Facial Treatments">Facial Treatments</option>
+                            <option value="Manicure & Pedicure">Manicure & Pedicure</option>
+                            <option value="Body Massage">Body Massage</option>
+                            <option value="Hair Treatment">Hair Treatment</option>
+                            <option value="Makeup Services">Makeup Services</option>
+                        </select>
+                        <span class="error-message" id="serviceError"></span>
+                    </div>
+
+                    <div class="form-pair">
+                        <div class="form-row">
+                            <label for="appointmentDate">Date</label>
+                            <input type="date" id="appointmentDate" name="appointmentDate" required>
+                            <span class="error-message" id="appointmentDateError"></span>
+                        </div>
+                        <div class="form-row">
+                            <label for="selectedTime">Selected time</label>
+                            <input type="text" id="selectedTime" name="selectedTime" placeholder="Choose a slot below" readonly required>
+                            <input type="hidden" id="appointmentTime" name="appointmentTime">
+                            <span class="error-message" id="appointmentTimeError"></span>
+                        </div>
+                    </div>
+
+                    <div class="slot-header">
+                        <h2>Available slots</h2>
+                        <div class="slot-legend">
+                            <span><i class="legend-dot available"></i> Available</span>
+                            <span><i class="legend-dot booked"></i> Booked</span>
+                        </div>
+                    </div>
+                    <div class="slot-grid" id="slotGrid" aria-live="polite"></div>
+
+                    <div class="form-pair">
+                        <div class="form-row">
+                            <label for="name">Full name</label>
+                            <input type="text" id="name" name="name" autocomplete="name" required minlength="2">
+                            <span class="error-message" id="nameError"></span>
+                        </div>
+                        <div class="form-row">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="+91 98765 43210" required>
+                            <span class="error-message" id="phoneError"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="email">Email optional</label>
+                        <input type="email" id="email" name="email" autocomplete="email">
+                        <span class="error-message" id="emailError"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="message">Notes</label>
+                        <textarea id="message" name="message" rows="3" placeholder="Tell us your goal or any special request." required minlength="5"></textarea>
+                        <span class="error-message" id="messageError"></span>
+                    </div>
+
+                    <button class="btn btn-primary btn-full" type="submit" id="submitButton"><i class="fas fa-lock"></i> Reserve Slot</button>
+                    <div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <script src="booking.js"></script>
+</body>
+</html>
