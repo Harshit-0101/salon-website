@@ -1,7 +1,7 @@
 const API_BASE_URLS = [
     window.API_BASE_URL,
-    'http://localhost:5000',
-    'http://localhost:5001'
+    'https://salon-lw3c.onrender.com',
+    'https://salon-lw3c.onrender.com'
 ].filter(Boolean);
 
 const CUSTOMER_TOKEN_KEY = 'premiumSalonCustomerToken';
